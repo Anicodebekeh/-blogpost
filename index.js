@@ -2,7 +2,8 @@ const express = require ('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const Blog = require('./model/schema')
+const Blog = require('./model/schema');
+const methodOverride = require('method-override');
 
 
 // mongoose connection 
@@ -15,19 +16,11 @@ app.set('views', path.join(__dirname, '/views'));
 app.set('views enjine', 'ejs');
 // parsing the body 
 app.use(express.urlencoded({extended:true}));
-
-
-// new Blog({
-//     title:"Ilebaye",
-//     body:"llolololololololo",
-//     author: "AMTV"
-// }).save()
-
+app.use(methodOverride('_method'))
 
 // get the index page
 app.get('/blog', async(req, res)=>{
     const blogs =await Blog.find()
-    console.log(blogs)
     res.render('index.ejs', {blogs})
 });
 
@@ -40,23 +33,29 @@ app.get('/newblog', (req, res)=>{
 app.post('/blog', async (req, res)=>{
     const blog = new Blog(req.body)
     await blog.save()
-    console.log(blog)
     res.redirect("/blog")
-})
+});
 
+// edit form
+app.get('/blog/:id/edit', async (req, res)=>{
+    const {id} =(req.params)
+    const blog =await Blog.findById(id)
+    res.render("edit.ejs", {blog})
+});
 
+// delete request
+app.delete('/blog/:id/delete', async (req, res)=>{
+    const {id} = req.params
+    await Blog.findByIdAndDelete(id)
+    res.redirect('/blog')
+});
 
-
-
-app.put('/blogpost/:id', (req, res)=>{
-    res.send("editing my post")
-})
-
-app.delete('/blogpost/:id', (req, res)=>{
-    res.send("deleting my post")
-})
-
-
+// put request
+app.put('/blog/:id', async (req, res)=>{
+    const {id} = req.params
+    await Blog.findByIdAndUpdate(id, req.body)
+    res.redirect('/blog')
+});
 
 
 app.listen(3000, ()=>{

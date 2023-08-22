@@ -12,6 +12,12 @@
         <li><%= blog.title %></li>
         <p><%=blog.body %></p>
         <span><%=blog.author %></span>
+        <a href="/blog/<%=blog._id%>/edit">edit </a>
+
+       <form action="/blog/<%=blog._id%>/delete?_method=DELETE" method="POST">
+        <button>Delete</button>
+       </form>
+        
     <% } %>
 
 
