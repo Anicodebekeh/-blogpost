@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Blog = require('./model/schema');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 
 // mongoose connection 
@@ -24,11 +25,12 @@ const sessionOptions={
     resave:false
 }
 app.use(session (sessionOptions));
+app.use(flash());
 
 // get the index page
 app.get('/blog', async(req, res)=>{
     const blogs =await Blog.find()
-    res.render('index.ejs', {blogs})
+    res.render('index.ejs', {blogs, messages: req.flash('success') })
 });
 
 // newblog form
@@ -36,10 +38,11 @@ app.get('/newblog', (req, res)=>{
     res.render('newBlog.ejs')
 });
 
-// post a new blog content
+// post
 app.post('/blog', async (req, res)=>{
     const blog = new Blog(req.body)
     await blog.save()
+    req.flash('success', 'created successfully')
     res.redirect("/blog")
 });
 
@@ -47,7 +50,7 @@ app.post('/blog', async (req, res)=>{
 app.get('/blog/:id', async(req, res)=>{
     const {id} =req.params
     const blog =await Blog.findById(id)
-    res.render("show.ejs", {blog})
+    res.render("show.ejs", {blog, messages:req.flash('success')})
 })
 
 // edit form
@@ -67,8 +70,9 @@ app.delete('/blog/:id/delete', async (req, res)=>{
 // put request
 app.put('/blog/:id', async (req, res)=>{
     const {id} = req.params
-    await Blog.findByIdAndUpdate(id, req.body)
-    res.redirect('/blog')
+    const blog = await Blog.findByIdAndUpdate(id, req.body)
+    req.flash('success', 'Edited successfully')
+    res.redirect(`/blog/${blog._id}`)
 });
 
 
