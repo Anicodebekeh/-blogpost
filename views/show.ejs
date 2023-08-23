@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+</head>
+<body>
+    <h1>show page</h1>
+    <h2>Title: <%= blog.title %></h2>
+    <p>Content: <%= blog.body %></p>
+    <p>author: <%= blog.author %></p>
+
+    <a href="/blog/<%=blog._id%>/edit">edit </a>
+    <form action="/blog/<%=blog._id%>/delete?_method=DELETE" method="POST">
+     <button>Delete</button>
+    </form>
+     
+</body>
+</html>

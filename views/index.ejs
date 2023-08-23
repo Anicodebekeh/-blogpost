@@ -9,15 +9,12 @@
     <h1>HERE IS YOUR HOME BLOG</h1>
     
     <% for (let blog of blogs){ %>
-        <li><%= blog.title %></li>
-        <p><%=blog.body %></p>
-        <span><%=blog.author %></span>
-        <a href="/blog/<%=blog._id%>/edit">edit </a>
-
-       <form action="/blog/<%=blog._id%>/delete?_method=DELETE" method="POST">
-        <button>Delete</button>
-       </form>
-        
+        <a href="/blog/<%=blog._id%>/">
+            <li><%= blog.title %></li>
+            <p><%=blog.body %></p>
+            <span><%=blog.author %></span>
+        </a>
+       
     <% } %>
 
 

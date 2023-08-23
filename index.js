@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Blog = require('./model/schema');
 const methodOverride = require('method-override');
+const session = require('express-session');
 
 
 // mongoose connection 
@@ -17,6 +18,12 @@ app.set('views enjine', 'ejs');
 // parsing the body 
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'))
+const sessionOptions={
+    secret: 'this is my secret', 
+    saveUninitialized:false, 
+    resave:false
+}
+app.use(session (sessionOptions));
 
 // get the index page
 app.get('/blog', async(req, res)=>{
@@ -35,6 +42,13 @@ app.post('/blog', async (req, res)=>{
     await blog.save()
     res.redirect("/blog")
 });
+
+// showRoute
+app.get('/blog/:id', async(req, res)=>{
+    const {id} =req.params
+    const blog =await Blog.findById(id)
+    res.render("show.ejs", {blog})
+})
 
 // edit form
 app.get('/blog/:id/edit', async (req, res)=>{
