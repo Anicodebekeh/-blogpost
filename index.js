@@ -19,6 +19,7 @@ app.set('views enjine', 'ejs');
 // parsing the body 
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'))
+// session object
 const sessionOptions={
     secret: 'this is my secret', 
     saveUninitialized:false, 
@@ -27,10 +28,17 @@ const sessionOptions={
 app.use(session (sessionOptions));
 app.use(flash());
 
+// flash middleware
+app.use((req,res, next)=>{
+    res.locals.messages = req.flash('success')
+    next()
+})
+
+
 // get the index page
 app.get('/blog', async(req, res)=>{
     const blogs =await Blog.find()
-    res.render('index.ejs', {blogs, messages: req.flash('success') })
+    res.render('index.ejs', {blogs})
 });
 
 // newblog form
@@ -50,7 +58,7 @@ app.post('/blog', async (req, res)=>{
 app.get('/blog/:id', async(req, res)=>{
     const {id} =req.params
     const blog =await Blog.findById(id)
-    res.render("show.ejs", {blog, messages:req.flash('success')})
+    res.render("show.ejs", {blog})
 })
 
 // edit form
