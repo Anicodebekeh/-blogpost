@@ -12,12 +12,12 @@
         <input type="text" name="title" placeholder="Title" id="title" value="<%=blog.title%>">
 
         <label for="body">Content</label>
-        <input type="text" name="body" placeholder="body" id="body" value="<%=blog.body%>">
+        <textarea name="body" id="body" cols="30" rows="3" placeholder="enter your message" required><%=blog.body %></textarea>
 
         <label for="author">Author</label>
         <input type="text" name="author" placeholder="author" id="author" value="<%=blog.author%>">
 
-        <button>done</button>
+        <button>Done</button>
        
     </form>
 </body>

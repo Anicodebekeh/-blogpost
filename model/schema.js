@@ -18,8 +18,20 @@ const blogSchema = new Schema({
 });
 
 
-const Blog = mongoose.model('Blog', blogSchema);
+const userSchema = new Schema({
+    email: {
+        type: String,
+        require:true
+    },
+
+    password:{
+        type: String,
+        required:true
+    }
+});
+
+// models
+module.exports.Blog=mongoose.model('Blog', blogSchema);
+module.exports.User = mongoose.model('User', userSchema);
 
 
-
-module.exports=Blog

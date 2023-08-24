@@ -2,7 +2,7 @@ const express = require ('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const Blog = require('./model/schema');
+const {Blog, User} = require('./model/schema');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -30,20 +30,44 @@ app.use(flash());
 
 // flash middleware
 app.use((req,res, next)=>{
-    res.locals.messages = req.flash('success')
+    res.locals.success = req.flash('success')
     next()
 })
 
 
+app.get('/register', (req, res)=>{
+    res.render('user/register.ejs')
+})
+
+app.post('/register', async(req, res)=>{
+    const user = await new User(req.body)
+    await user.save()
+    res.redirect('/login')
+})
+
+app.get('/login', (req, res)=>{
+    res.render('user/login.ejs')
+})
+
+app.post('/login', async(req, res)=>{
+    const {email, password} = (req.body)
+    const user = await User.findOne({email})
+    if (user.password===password){
+       res.redirect('/blog')
+    }
+    console.log(user)
+ 
+})
+
 // get the index page
 app.get('/blog', async(req, res)=>{
     const blogs =await Blog.find()
-    res.render('index.ejs', {blogs})
+    res.render('blog/index.ejs', {blogs})
 });
 
 // newblog form
 app.get('/newblog', (req, res)=>{
-    res.render('newBlog.ejs')
+    res.render('blog/newBlog.ejs')
 });
 
 // post
@@ -58,14 +82,14 @@ app.post('/blog', async (req, res)=>{
 app.get('/blog/:id', async(req, res)=>{
     const {id} =req.params
     const blog =await Blog.findById(id)
-    res.render("show.ejs", {blog})
+    res.render("blog/show.ejs", {blog})
 })
 
 // edit form
 app.get('/blog/:id/edit', async (req, res)=>{
     const {id} =(req.params)
     const blog =await Blog.findById(id)
-    res.render("edit.ejs", {blog})
+    res.render("blog/edit.ejs", {blog})
 });
 
 // delete request
@@ -78,10 +102,11 @@ app.delete('/blog/:id/delete', async (req, res)=>{
 // put request
 app.put('/blog/:id', async (req, res)=>{
     const {id} = req.params
-    const blog = await Blog.findByIdAndUpdate(id, req.body)
+    const blog = await Blog.findByIdAndUpdate(id, req.body, {runValidators:true})
     req.flash('success', 'Edited successfully')
     res.redirect(`/blog/${blog._id}`)
 });
+
 
 
 app.listen(3000, ()=>{
