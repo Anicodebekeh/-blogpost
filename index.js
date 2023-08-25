@@ -6,7 +6,8 @@ const {Blog, User} = require('./model/schema');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
-
+const LocalStrategy = require('passport-local');
+const passport = require('passport');
 
 // mongoose connection 
 mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
@@ -27,10 +28,17 @@ const sessionOptions={
 }
 app.use(session (sessionOptions));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser)
 
 // flash middleware
 app.use((req,res, next)=>{
     res.locals.success = req.flash('success')
+    res.locals.error = req.flash('error')
+    // res.locals.CurrentUser = req.user
     next()
 })
 
@@ -40,24 +48,31 @@ app.get('/register', (req, res)=>{
 })
 
 app.post('/register', async(req, res)=>{
-    const user = await new User(req.body)
-    await user.save()
-    res.redirect('/login')
+  try{
+    const {email, username, password} = req.body
+    const newUser = new User({email, username})
+     const registeredUser = await User.register(newUser, password)
+     await registeredUser.save()
+     req.flash('success', 'you are welcome')
+     return res.redirect('/blog')
+  }
+  catch(e){
+    req.flash('error', e.message)
+    // console.log(e)
+    res.redirect('/register')
+  }
 })
+
 
 app.get('/login', (req, res)=>{
     res.render('user/login.ejs')
 })
 
-app.post('/login', async(req, res)=>{
-    const {email, password} = (req.body)
-    const user = await User.findOne({email})
-    if (user.password===password){
-       res.redirect('/blog')
-    }
-    console.log(user)
- 
+app.post('/login', passport.authenticate('local', {failureFlash:true, failureRedirect:'/login'}), (req, res)=>{
+   req.flash('success', 'welcome back')
+   res.redirect('/blog')
 })
+
 
 // get the index page
 app.get('/blog', async(req, res)=>{
