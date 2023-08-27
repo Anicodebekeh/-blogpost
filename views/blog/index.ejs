@@ -6,8 +6,23 @@
     <title>Home</title>
 </head>
 <body>
+    <nav>
+        <div class="navbar">
+            <%if (currentUser){ %>
+                <a href="/logout">logout</a>
+           <% }else {%>
+            <a href="/login">Sign-in</a>
+            <a href="/register">Signup</a>
+            <% } %>
+        </div>
+    </nav>
+
     <h1>HERE IS YOUR HOME BLOG</h1>
-        <p><%=success %></p>
+    <p><%=success %></p> 
+    <% if (currentUser){ %>
+        <span>welcome <%=currentUser.username%></span>
+    <% } %>
+        
     <% for (let blog of blogs){ %>
         <a href="/blog/<%=blog._id%>/">
             <li><%= blog.title %></li>

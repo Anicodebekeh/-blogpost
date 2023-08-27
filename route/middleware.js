@@ -1,4 +1,5 @@
 module.exports.isloggedin = ((req, res, next)=>{
+    console.log(req. originalUrl)
     if (req.isAuthenticated()){
         return next()
     }

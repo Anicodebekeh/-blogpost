@@ -6,6 +6,19 @@
     <title>Show</title>
 </head>
 <body>
+    <nav>
+        <div class="navbar">
+           
+            <%if (currentUser){ %>
+                <a href="/logout">logout</a>
+           <% }else {%>
+            <a href="/login">Sign-in</a>
+            <a href="/register">Signup</a>
+            <% } %>
+        </div>
+    </nav>
+
+
     <p><%=success %></p>
     <h1>show page</h1>
     <h2>Title: <%= blog.title %></h2>
