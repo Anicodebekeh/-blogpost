@@ -6,12 +6,15 @@
     <title>Login</title>
 </head>
 <body>
+
    <p><%=success %></p>
+   <p><%=error %></p>
+   
     <h1>Login</h1>
     <form action="/login" method="POST">
        
         <label for="username">username</label>
-        <input type="username" name="username" id="username" required>
+        <input type="text" name="username" id="username" required>
 
         <label for="password">password</label>
         <input type="password" name="password" id="password" required>
