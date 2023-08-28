@@ -40,6 +40,7 @@ passport.deserializeUser(User.deserializeUser())
 
 // flash middleware
 app.use((req,res, next)=>{
+    req.session.returnTo
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
     res.locals.currentUser = req.user
