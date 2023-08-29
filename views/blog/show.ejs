@@ -23,12 +23,14 @@
     <h1>show page</h1>
     <h2>Title: <%= blog.title %></h2>
     <p>Content: <%= blog.body %></p>
-    <p>author: <%= blog.author %></p>
+    <p>author:<%=blog.user.username %></p>
 
-    <a href="/blog/<%=blog._id%>/edit">edit </a>
-    <form action="/blog/<%=blog._id%>/delete?_method=DELETE" method="POST">
-     <button>Delete</button>
-    </form>
-     
+  
+    <%if (currentUser && blog.user.equals(currentUser._id)){ %>
+        <a href="/blog/<%=blog._id%>/edit">edit </a>
+        <form action="/blog/<%=blog._id%>/delete?_method=DELETE" method="POST">
+         <button>Delete</button>
+        </form>
+    <% } %>
 </body>
 </html>

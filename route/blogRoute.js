@@ -13,14 +13,12 @@ router.get('/', async(req, res)=>{
 // newblog form
 router.get('/newblog', isloggedin, (req, res)=>{
    res.render('blog/new.ejs')
-   
 });
 
 // post
 router.post('/', isloggedin, async (req, res)=>{
     const blog = await new Blog(req.body)
-    blog.user = blog._id
-    // Blog.user = Blog._id 
+    blog.user = req.user._id
     await blog.save()
     req.flash('success', 'created successfully')
     res.redirect("/blog")
@@ -29,14 +27,14 @@ router.post('/', isloggedin, async (req, res)=>{
 // showRoute
 router.get('/:id', async(req, res)=>{
     const {id} =req.params
-    const blog =await Blog.findById(id)
+    const blog =await Blog.findById(id).populate('user')
     res.render("blog/show.ejs", {blog})
 })
 
 // edit form
 router.get('/:id/edit', isloggedin, async (req, res)=>{
     const {id} =(req.params)
-    const blog =await Blog.findById(id)
+    const blog =await Blog.findById(id);
     res.render("blog/edit.ejs", {blog})
 });
 
@@ -51,11 +49,8 @@ router.delete('/:id/delete', isloggedin, async (req, res)=>{
 // put request
 router.put('/:id', isloggedin, async (req, res)=>{
     const {id} = req.params
-    const blog = await Blog.findByIdAndUpdate(id, req.body, {runValidators:true})
-    blog.populate('user')
-    console.log('populated user', blog)
+    const blog = await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
     req.flash('success', 'Edited successfully')
-    console.log('before editing', req.user)
     res.redirect(`/blog/${blog._id}`)
 });
 
