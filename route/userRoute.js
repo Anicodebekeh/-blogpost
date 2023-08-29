@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const {User}= require('../model/schema');
+const {User}= require('../model/userSchema');
 const {storeReturnTo} = require('./middleware');
 
 router.get('/register', (req, res)=>{
@@ -52,9 +52,6 @@ router.get('/login', (req, res)=>{
       const redirectUrl = res.locals.returnTo || '/blog'; // update this line to use res.locals.returnTo now
       res.redirect(redirectUrl);
   });
-
-
-
 
 
 router.get('/logout', (req, res)=>{
