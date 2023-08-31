@@ -17,7 +17,12 @@
         </div>
     </nav>
 
+
     <h1>HERE IS YOUR HOME BLOG</h1>
+<!-- error and success flash message-->
+    <p><%=success %></p>
+    <p><%=error %></p>
+
     <% if (currentUser){ %>
         <span>welcome <%=currentUser.username%></span>
     <% } %>

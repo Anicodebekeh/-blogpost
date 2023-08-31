@@ -35,7 +35,11 @@ router.get('/:id', async(req, res)=>{
 router.get('/:id/edit', isloggedin, async (req, res)=>{
     const {id} =(req.params)
     const blog =await Blog.findById(id);
-    res.render("blog/edit.ejs", {blog})
+    if(!blog){
+        req.flash('error', 'This blog do not exist')
+        return res.redirect(`/blog`)
+    }
+        return res.render("blog/edit.ejs", {blog})
 });
 
 // delete request
