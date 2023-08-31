@@ -49,10 +49,24 @@ router.delete('/:id/delete', isloggedin, async (req, res)=>{
 // put request
 router.put('/:id', isloggedin, async (req, res)=>{
     const {id} = req.params
-    const blog = await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
-    req.flash('success', 'Edited successfully')
-    res.redirect(`/blog/${blog._id}`)
+    const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
+    if (!blog.user.equals(req.user._id)){
+        req.flash('error','You do not have the permission')
+        return res.redirect(`/blog/${blog._id}`)
+    }else{
+        req.flash('success', 'Edited successfully')
+        return res.redirect(`/blog/${blog._id}`)
+    }
 });
 
 module.exports= router
 
+//check if the loggedin user is the same user who created the campground 
+// const checkUser = ((req, res, next)=>{
+// if (!blog.user.equals(req.user._id)){
+//     res.flash('error','You do not have the permission')
+//     return res.redirect ('/blogs')
+// }else{
+//     next()
+// }
+// })
