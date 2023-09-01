@@ -36,8 +36,12 @@ router.get('/:id/edit', isloggedin, async (req, res)=>{
     const {id} =(req.params)
     const blog =await Blog.findById(id);
     if(!blog){
-        req.flash('error', 'This blog do not exist')
+        req.flash('error', 'invalid blog')
         return res.redirect(`/blog`)
+    }
+    if(!blog.user.equals(req.user._id)){
+        req.flash('error', 'You do not have permission to do that')
+        return res.redirect(`/blog/${blog._id}`)
     }
         return res.render("blog/edit.ejs", {blog})
 });
