@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {Blog} = require('../model/blogSchema');
 const {isloggedin}= require('./middleware')
+const {isAuthor}= require ('./middleware')
 
 
 // get the index page
@@ -32,39 +33,31 @@ router.get('/:id', async(req, res)=>{
 })
 
 // edit form
-router.get('/:id/edit', isloggedin, async (req, res)=>{
+router.get('/:id/edit', isloggedin, isAuthor, async (req, res)=>{
     const {id} =(req.params)
     const blog =await Blog.findById(id);
     if(!blog){
         req.flash('error', 'invalid blog')
         return res.redirect(`/blog`)
     }
-    if(!blog.user.equals(req.user._id)){
-        req.flash('error', 'You do not have permission to do that')
-        return res.redirect(`/blog/${blog._id}`)
-    }
         return res.render("blog/edit.ejs", {blog})
 });
 
 // delete request
-router.delete('/:id/delete', isloggedin, async (req, res)=>{
-    const {id} = req.params
+router.delete('/:id/', isloggedin, isAuthor, async (req, res)=>{
+    const {id } = req.params    
     await Blog.findByIdAndDelete(id)
-   
+    req.flash('success', 'Blog deleted successfully')
     res.redirect('/blog')
 });
 
 // put request
-router.put('/:id', isloggedin, async (req, res)=>{
+router.put('/:id', isloggedin, isAuthor, async (req, res)=>{
     const {id} = req.params
     const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
-    if (!blog.user.equals(req.user._id)){
-        req.flash('error','You do not have the permission')
-        return res.redirect(`/blog/${blog._id}`)
-    }else{
-        req.flash('success', 'Edited successfully')
-        return res.redirect(`/blog/${blog._id}`)
-    }
+    req.flash('success', 'Edited successfully')
+    return res.redirect(`/blog/${blog._id}`)
+    
 });
 
 module.exports= router
