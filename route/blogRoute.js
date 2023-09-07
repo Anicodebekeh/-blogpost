@@ -19,11 +19,12 @@ router.get('/newblog', isloggedin, (req, res)=>{
 
 // post
 router.post('/', isloggedin, wrapAsync(async (req, res)=>{
-    if(!req.body.blog){
+    if(!req.body){
         //   res.render('blog/new.ejs')
         throw new AppError('invalid data', 400)
 
     }
+    console.log(req.body)
     const blog = await new Blog(req.body)
     blog.user = req.user._id
     await blog.save()
