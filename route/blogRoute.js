@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const {Blog} = require('../model/blogSchema');
-const {isloggedin}= require('./middleware')
-const {isAuthor}= require ('./middleware')
-
+const {isloggedin}= require('./middleware');
+const {isAuthor}= require ('./middleware');
+const wrapAsync = require('../utils/wrapAsync');
+// const AppError = require('../utils/AppError');
 
 // get the index page
 router.get('/', async(req, res)=>{
@@ -17,23 +18,23 @@ router.get('/newblog', isloggedin, (req, res)=>{
 });
 
 // post
-router.post('/', isloggedin, async (req, res)=>{
+router.post('/', isloggedin, wrapAsync(async (req, res)=>{
     const blog = await new Blog(req.body)
     blog.user = req.user._id
     await blog.save()
     req.flash('success', 'created successfully')
     res.redirect("/blog")
-});
+}));
 
 // showRoute
-router.get('/:id', async(req, res)=>{
+router.get('/:id', wrapAsync(async(req, res)=>{
     const {id} =req.params
     const blog =await Blog.findById(id).populate('user')
     res.render("blog/show.ejs", {blog})
-})
+}));
 
 // edit form
-router.get('/:id/edit', isloggedin, isAuthor, async (req, res)=>{
+router.get('/:id/edit', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
     const {id} =(req.params)
     const blog =await Blog.findById(id);
     if(!blog){
@@ -41,24 +42,25 @@ router.get('/:id/edit', isloggedin, isAuthor, async (req, res)=>{
         return res.redirect(`/blog`)
     }
         return res.render("blog/edit.ejs", {blog})
-});
+}));
 
 // delete request
-router.delete('/:id/', isloggedin, isAuthor, async (req, res)=>{
+router.delete('/:id/', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
     const {id } = req.params    
     await Blog.findByIdAndDelete(id)
     req.flash('success', 'Blog deleted successfully')
     res.redirect('/blog')
-});
+}));
 
 // put request
-router.put('/:id', isloggedin, isAuthor, async (req, res)=>{
+router.put('/:id', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
     const {id} = req.params
     const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
     req.flash('success', 'Edited successfully')
     return res.redirect(`/blog/${blog._id}`)
     
-});
+}));
+
 
 module.exports= router
 

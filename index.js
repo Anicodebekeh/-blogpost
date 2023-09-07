@@ -10,6 +10,7 @@ const LocalStrategy = require('passport-local');
 const passport = require('passport');
 const blogRoute = require('./route/blogRoute');
 const userRoute = require('./route/userRoute');
+const AppError = require('./utils/appError');
 
 // mongoose connection 
 mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
@@ -53,10 +54,15 @@ app.use((req,res, next)=>{
 app.use('/blog', blogRoute);
 app.use('/', userRoute);
 
+// app.all('*', (req, res, next)=>{
+//     next(new AppError('page not found', 404))
+// })
+
+app.use((err, req, res, next)=>{
+    const {message="error", status= 404}= err
+    res.send(message).status(status)
+})
 
 app.listen(3000, ()=>{
     console.log('listening to port 3000')
 })
-
-
-
