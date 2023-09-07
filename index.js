@@ -54,15 +54,17 @@ app.use((req,res, next)=>{
 app.use('/blog', blogRoute);
 app.use('/', userRoute);
 
+// 404 page
 app.all('*', (req, res, next)=>{
     next(new AppError('page not found', 404))
-})
+});
 
 app.use((err, req, res, next)=>{
     const {message="error", status= 404}= err
-    res.send(message).status(status)
-})
+    if (!err.message)err.message = 'something went wroung'
+     res.status(status).render('error.ejs', {err})
+});
 
 app.listen(3000, ()=>{
     console.log('listening to port 3000')
-})
+});

@@ -33,14 +33,6 @@ router.get('/login', (req, res)=>{
     res.render('user/login.ejs')
 })
 
-// router.post('/login', storeReturnTo,
-//   passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res)=> {
-//     req.flash('success', 'welcome back')
-//     const requestedUrl = res.locals.returnTo || '/blog';
-//     res.redirect (requestedUrl)
-//   });
-
-
   router.post('/login',
   // use the storeReturnTo middleware to save the returnTo value from session to res.locals
   storeReturnTo,

@@ -4,7 +4,7 @@ const {Blog} = require('../model/blogSchema');
 const {isloggedin}= require('./middleware');
 const {isAuthor}= require ('./middleware');
 const wrapAsync = require('../utils/wrapAsync');
-// const AppError = require('../utils/AppError');
+const AppError = require('../utils/appError');
 
 // get the index page
 router.get('/', async(req, res)=>{
@@ -19,6 +19,11 @@ router.get('/newblog', isloggedin, (req, res)=>{
 
 // post
 router.post('/', isloggedin, wrapAsync(async (req, res)=>{
+    if(!req.body.blog){
+        //   res.render('blog/new.ejs')
+        throw new AppError('invalid data', 400)
+
+    }
     const blog = await new Blog(req.body)
     blog.user = req.user._id
     await blog.save()
