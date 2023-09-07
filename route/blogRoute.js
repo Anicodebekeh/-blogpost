@@ -60,6 +60,10 @@ router.delete('/:id/', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
 // put request
 router.put('/:id', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
     const {id} = req.params
+    // const foundBlog = Blog.findById(id)
+    // if(!foundBlog._id.equals(id)){
+    //     throw new AppError('invalid Blog', 404)
+    // }
     const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
     req.flash('success', 'Edited successfully')
     return res.redirect(`/blog/${blog._id}`)
@@ -69,12 +73,3 @@ router.put('/:id', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
 
 module.exports= router
 
-//check if the loggedin user is the same user who created the campground 
-// const checkUser = ((req, res, next)=>{
-// if (!blog.user.equals(req.user._id)){
-//     res.flash('error','You do not have the permission')
-//     return res.redirect ('/blogs')
-// }else{
-//     next()
-// }
-// })
