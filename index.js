@@ -54,9 +54,9 @@ app.use((req,res, next)=>{
 app.use('/blog', blogRoute);
 app.use('/', userRoute);
 
-// app.all('*', (req, res, next)=>{
-//     next(new AppError('page not found', 404))
-// })
+app.all('*', (req, res, next)=>{
+    next(new AppError('page not found', 404))
+})
 
 app.use((err, req, res, next)=>{
     const {message="error", status= 404}= err
