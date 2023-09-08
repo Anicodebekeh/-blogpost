@@ -1,10 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const Joi = require('joi');
 const {Blog} = require('../model/blogSchema');
 const {isloggedin}= require('./middleware');
 const {isAuthor}= require ('./middleware');
 const wrapAsync = require('../utils/wrapAsync');
 const AppError = require('../utils/appError');
+
+
+// const joiValidator = (req, res, next)=>{
+//     const joiSchema =Joi.object({
+//         title: Joi.string().required(),
+//         body: Joi.string().required()
+//     })
+//     const {error}= joiSchema.validate(req.body);
+//     console.log(error)
+// }
+
+
+
 
 // get the index page
 router.get('/', async(req, res)=>{
@@ -20,11 +34,9 @@ router.get('/newblog', isloggedin, (req, res)=>{
 // post
 router.post('/', isloggedin, wrapAsync(async (req, res)=>{
     if(!req.body){
-        //   res.render('blog/new.ejs')
+        // res.redirect('/new.ejs')
         throw new AppError('invalid data', 400)
-
     }
-    console.log(req.body)
     const blog = await new Blog(req.body)
     blog.user = req.user._id
     await blog.save()
@@ -52,8 +64,15 @@ router.get('/:id/edit', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
 
 // delete request
 router.delete('/:id/', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
-    const {id } = req.params    
+    const {id } = req.params
+    // const blog = Blog.findById(id)
+    // isEqual(id, blog._id)
+    // if(id !== blog._id){
+    //     throw new AppError('Blog do not exist')
+    // }
+    
     await Blog.findByIdAndDelete(id)
+    // console.log(id, "blogid:", blog._id)
     req.flash('success', 'Blog deleted successfully')
     res.redirect('/blog')
 }));

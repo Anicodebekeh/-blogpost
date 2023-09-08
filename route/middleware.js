@@ -1,4 +1,5 @@
 const {Blog} = require('../model/blogSchema');
+
 module.exports.isloggedin = ((req, res, next)=>{
     if (!req.isAuthenticated()){
         req.session.returnTo = req.originalUrl
