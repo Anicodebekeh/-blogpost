@@ -45,8 +45,6 @@ app.use((req,res, next)=>{
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
     res.locals.currentUser = req.user
-    // console.log('currentuser', req.user)
-    // console.log('bloguser', )
     next()
 })
 
@@ -60,7 +58,7 @@ app.all('*', (req, res, next)=>{
 });
 
 app.use((err, req, res, next)=>{
-    const {message="error", status= 404}= err
+    const {status= 404}= err
     if (!err.message)err.message = 'something went wroung'
      res.status(status).render('error.ejs', {err})
 });

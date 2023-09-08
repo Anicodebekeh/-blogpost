@@ -1,24 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Joi = require('joi');
 const {Blog} = require('../model/blogSchema');
 const {isloggedin}= require('./middleware');
 const {isAuthor}= require ('./middleware');
 const wrapAsync = require('../utils/wrapAsync');
 const AppError = require('../utils/appError');
-
-
-// const joiValidator = (req, res, next)=>{
-//     const joiSchema =Joi.object({
-//         title: Joi.string().required(),
-//         body: Joi.string().required()
-//     })
-//     const {error}= joiSchema.validate(req.body);
-//     console.log(error)
-// }
-
-
-
 
 // get the index page
 router.get('/', async(req, res)=>{
@@ -33,11 +19,10 @@ router.get('/newblog', isloggedin, (req, res)=>{
 
 // post
 router.post('/', isloggedin, wrapAsync(async (req, res)=>{
-    if(!req.body){
-        // res.redirect('/new.ejs')
-        throw new AppError('invalid data', 400)
-    }
-    const blog = await new Blog(req.body)
+    const {title, body} = req.body
+    if(!title && !body) throw new AppError('invalid data', 400)
+
+    const blog = new Blog(req.body)
     blog.user = req.user._id
     await blog.save()
     req.flash('success', 'created successfully')
