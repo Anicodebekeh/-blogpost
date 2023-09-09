@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {Blog} = require('../model/blogSchema');
 const {isloggedin}= require('./middleware');
 const {isAuthor}= require ('./middleware');
-const wrapAsync = require('../utils/wrapAsync');
-const AppError = require('../utils/appError');
 const blog = require('../controller/blog')
 
 // get the index page

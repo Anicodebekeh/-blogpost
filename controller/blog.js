@@ -53,5 +53,4 @@ module.exports.put = wrapAsync(async (req, res)=>{
     const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
     req.flash('success', 'Edited successfully')
     return res.redirect(`/blog/${blog._id}`)
-    
 });
