@@ -5,29 +5,16 @@ const {isloggedin}= require('./middleware');
 const {isAuthor}= require ('./middleware');
 const wrapAsync = require('../utils/wrapAsync');
 const AppError = require('../utils/appError');
+const blog = require('../controller/blog')
 
 // get the index page
-router.get('/', async(req, res)=>{
-    const blogs =await Blog.find()
-    res.render('blog/index.ejs', {blogs})
-});
+router.get('/', blog.index);
 
 // newblog form
-router.get('/newblog', isloggedin, (req, res)=>{
-   res.render('blog/new.ejs')
-});
+router.get('/newblog', isloggedin, blog.new);
 
 // post
-router.post('/', isloggedin, wrapAsync(async (req, res)=>{
-    const {title, body} = req.body
-    if(!title && !body) throw new AppError('invalid data', 400)
-
-    const blog = new Blog(req.body)
-    blog.user = req.user._id
-    await blog.save()
-    req.flash('success', 'created successfully')
-    res.redirect("/blog")
-}));
+router.post('/', isloggedin, blog.post);
 
 // showRoute
 router.get('/:id', wrapAsync(async(req, res)=>{
