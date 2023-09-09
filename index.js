@@ -57,6 +57,7 @@ app.all('*', (req, res, next)=>{
     next(new AppError('page not found', 404))
 });
 
+// error handler
 app.use((err, req, res, next)=>{
     const {status= 404}= err
     if (!err.message)err.message = 'something went wroung'
