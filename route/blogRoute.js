@@ -17,50 +17,16 @@ router.get('/newblog', isloggedin, blog.new);
 router.post('/', isloggedin, blog.post);
 
 // showRoute
-router.get('/:id', wrapAsync(async(req, res)=>{
-    const {id} =req.params
-    const blog =await Blog.findById(id).populate('user')
-    res.render("blog/show.ejs", {blog})
-}));
+router.get('/:id', blog.show);
 
 // edit form
-router.get('/:id/edit', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
-    const {id} =(req.params)
-    const blog =await Blog.findById(id);
-    if(!blog){
-        req.flash('error', 'invalid blog')
-        return res.redirect(`/blog`)
-    }
-        return res.render("blog/edit.ejs", {blog})
-}));
+router.get('/:id/edit', isloggedin, isAuthor, blog.editForm);
 
 // delete request
-router.delete('/:id/', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
-    const {id } = req.params
-    // const blog = Blog.findById(id)
-    // isEqual(id, blog._id)
-    // if(id !== blog._id){
-    //     throw new AppError('Blog do not exist')
-    // }
-    
-    await Blog.findByIdAndDelete(id)
-    // console.log(id, "blogid:", blog._id)
-    req.flash('success', 'Blog deleted successfully')
-    res.redirect('/blog')
-}));
+router.delete('/:id/', isloggedin, isAuthor, blog.delete);
 
 // put request
-router.put('/:id', isloggedin, isAuthor, wrapAsync(async (req, res)=>{
-    const {id} = req.params
-    // const foundBlog = Blog.findById(id)
-    // if(!foundBlog._id.equals(id)){
-    //     throw new AppError('invalid Blog', 404)
-    // }
-    const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
-    req.flash('success', 'Edited successfully')
-    return res.redirect(`/blog/${blog._id}`)
-    
-}));
+router.put('/:id', isloggedin, isAuthor, blog.put);
 
 
 module.exports= router
