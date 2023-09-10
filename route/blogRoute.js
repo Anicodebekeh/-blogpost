@@ -4,26 +4,27 @@ const {isloggedin}= require('./middleware');
 const {isAuthor}= require ('./middleware');
 const blog = require('../controller/blog')
 
+// ****************grouping route with similar path***************// instead of using 'router.get('/')', in this case you have to remove the path from the route
 // get the index page
-router.get('/', blog.index);
+router.route('/')
+    .get(blog.index)
+    // post
+    .post(isloggedin, blog.post);
 
 // newblog form
 router.get('/newblog', isloggedin, blog.new);
 
-// post
-router.post('/', isloggedin, blog.post);
-
+router.route('/:id')
 // showRoute
-router.get('/:id', blog.show);
+    .get( blog.show )
+// delete request
+    .delete( isloggedin, isAuthor, blog.delete )
+// put request
+    .put( isloggedin, isAuthor, blog.put );
 
 // edit form
 router.get('/:id/edit', isloggedin, isAuthor, blog.editForm);
 
-// delete request
-router.delete('/:id/', isloggedin, isAuthor, blog.delete);
-
-// put request
-router.put('/:id', isloggedin, isAuthor, blog.put);
 
 
 module.exports= router
