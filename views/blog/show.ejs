@@ -22,11 +22,16 @@
     <p><%=success %></p>
     <p><%=error %></p>
     <h1>show page</h1>
+
+    <% for(let img of blog.images){ %>
+        <img src="<%=img.url%>" alt="">
+    <% } %>
+
     <h2>Title: <%= blog.title %></h2>
     <p>Content: <%= blog.body %></p>
     <p>author:<%=blog.user.username %></p>
 
-  
+
     <%if (currentUser && blog.user.equals(currentUser._id)){ %>
         <a href="/blog/<%=blog._id%>/edit">edit </a>
         <form action="/blog/<%=blog._id%>?_method=DELETE" method="POST">

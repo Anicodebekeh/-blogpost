@@ -12,7 +12,7 @@ const upload = multer({ storage })
 router.route('/')
     .get(blog.index)
     // post
-    .post(isloggedin, blog.post);
+    .post(isloggedin, upload.array('image'), blog.post);
     // router.post('/', upload.array('image'), function (req, res, next) {
     //         console.log(req.files)
     //         console.log(req.body) 
