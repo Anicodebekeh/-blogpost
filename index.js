@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config()
+}
+
 const express = require ('express');
 const app = express();
 const path = require('path');
@@ -11,6 +15,8 @@ const passport = require('passport');
 const blogRoute = require('./route/blogRoute');
 const userRoute = require('./route/userRoute');
 const AppError = require('./utils/appError');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 // mongoose connection 
 mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
