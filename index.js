@@ -2,6 +2,8 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
 
+// console.log(process.env.CLOUDINARY_SECRET)
+
 const express = require ('express');
 const app = express();
 const path = require('path');
@@ -15,8 +17,7 @@ const passport = require('passport');
 const blogRoute = require('./route/blogRoute');
 const userRoute = require('./route/userRoute');
 const AppError = require('./utils/appError');
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+
 
 // mongoose connection 
 mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
@@ -56,6 +57,11 @@ app.use((req,res, next)=>{
 
 // this route should be after the flash middleware else you will get the erroe message of flash not define 
 app.use('/blog', blogRoute);
+// app.post('/profile', upload.array('image'), function (req, res, next) {
+//     console.log(req.files)
+//     console.log(req.body) 
+//     res.send('sent')
+//   })
 app.use('/', userRoute);
 
 // 404 page
