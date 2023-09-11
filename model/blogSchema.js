@@ -11,6 +11,13 @@ const blogSchema = new Schema({
         required:true
     },
 
+    images:[
+        {
+            url: String,
+            filename:String
+        }
+    ],
+
     user:{
         type: Schema.Types.ObjectId,
         ref: 'User'
