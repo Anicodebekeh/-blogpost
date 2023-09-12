@@ -28,7 +28,7 @@ router.route('/:id')
 // delete request
     .delete( isloggedin, isAuthor, blog.delete )
 // put request
-    .put( isloggedin, isAuthor, blog.put );
+    .put( isloggedin, isAuthor, upload.array('image'), blog.put );
 
 // edit form
 router.get('/:id/edit', isloggedin, isAuthor, blog.editForm);

@@ -60,6 +60,9 @@ module.exports.put = wrapAsync(async (req, res)=>{
         throw new AppError('invalid Blog', 404)
     }
     const blog =await Blog.findByIdAndUpdate(id, req.body, {runValidators:true});
+    const img = req.files.map(i => ({url: i.path, filename: i.filename}))
+    blog.images.push(...img)
+    await blog.save()
     req.flash('success', 'Edited successfully')
     return res.redirect(`/blog/${blog._id}`)
 });
