@@ -22,5 +22,11 @@
         <button>Done</button>
        
     </form>
+
+    <%blog.images.forEach(function(img, i){ %>
+        <img src="<%=img.url%>" alt="">
+        <input type="checkbox" name= "deleteImages[]" id="image<%=i%>" value="<%=img.filename%>">
+        <label for="image<%=i%>">delete</label>
+    <% }) %>
 </body>
 </html>
