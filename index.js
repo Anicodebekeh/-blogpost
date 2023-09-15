@@ -26,7 +26,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
 .catch((e)=> console.log("error connecting to mongo", e))
 
 // tell express you want to use ejs-mate
-app.use('ejs', ejsMate)
+app.engine('ejs', ejsMate)
 // telling express to use view for template rendering
 app.set('views', path.join(__dirname, '/views'));
 app.set('views enjine', 'ejs');
