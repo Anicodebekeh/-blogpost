@@ -1,16 +1,4 @@
 <% layout( './layouts/boilerplate' ) %>
-    <nav>
-        <div class="navbar">
-           
-            <%if (currentUser){ %>
-                <a href="/logout">logout</a>
-           <% }else {%>
-            <a href="/login">Sign-in</a>
-            <a href="/register">Signup</a>
-            <% } %>
-        </div>
-    </nav>
-
 
     <p><%=success %></p>
     <p><%=error %></p>
