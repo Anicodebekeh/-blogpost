@@ -48,6 +48,15 @@ nav .right-pan ul li{
 nav .right-pan a{
     text-decoration: none;
     color: #dee2e6;
+    transition:  all 1s;
+}
+
+nav .right-pan a:hover{
+    text-shadow: 2px 2px 4px #023047;
+}
+
+nav .right-pan .navbar {
+   border-left: 0.1em solid #dee2e6;
 }
 
 nav .navbar span{
@@ -75,8 +84,9 @@ nav .navbar span{
     padding-bottom: 0.8em;
 }
 
-.home button{
+.home a{
     text-align: center;
+    text-decoration: none;
     padding: 0.5em 2em;
     font-size: 1.2rem;
     border-radius: 0.3em;
@@ -85,4 +95,11 @@ nav .navbar span{
     background-color: #023047;
     cursor: pointer;
     font-weight: 400;
+    transition: all 0.8s ease-in-out;
+}
+
+.home a:hover{
+    background-color: #dee2e6;
+    color: #023047;
+    font-weight: bolder;
 }
