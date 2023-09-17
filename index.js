@@ -40,7 +40,7 @@ const sessionOptions={
     resave:false
 }
 
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(session (sessionOptions));
 app.use(flash());
 app.use(passport.initialize());
@@ -69,18 +69,23 @@ app.use('/blog', blogRoute);
 //   })
 app.use('/', userRoute);
 
+// landing page
+app.get('/', (req, res) => {
+    res.render('blog/home.ejs')
+})
+
 // 404 page
-app.all('*', (req, res, next)=>{
+app.all('*', (req, res, next) => {
     next(new AppError('page not found', 404))
 });
 
 // error handler
-app.use((err, req, res, next)=>{
+app.use((err, req, res, next) => {
     const {status= 404}= err
     if (!err.message)err.message = 'something went wroung'
      res.status(status).render('error.ejs', {err})
 });
 
-app.listen(3000, ()=>{
+app.listen(3000, () => {
     console.log('listening to port 3000')
 });

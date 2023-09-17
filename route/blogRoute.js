@@ -7,8 +7,10 @@ const multer  = require('multer')
 const { storage }= require('../cloudinary')
 const upload = multer({ storage })
 
+
 // ****************grouping route with similar path***************// instead of using 'router.get('/')', in this case you have to remove the path from the route
 // get the index page
+
 router.route('/')
     .get(blog.index)
     // post

@@ -1,12 +1,23 @@
 
     <nav>
-        <div class="navbar">
-           
-            <%if (currentUser){ %>
-                <a href="/logout">logout</a>
-           <% }else {%>
-            <a href="/login">Sign-in</a>
-            <a href="/register">Signup</a>
-            <% } %>
+        <div class="left-pan">
+            <h1>blogPost</h1>
         </div>
+
+       <div class="right-pan">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blogs</a></li>
+                <li><a href="/blog/newblog">Create</a></li>
+            </ul>
+
+            <div class="navbar">
+                <%if (currentUser){ %>
+                    <a href="/logout">logout</a>
+            <% }else {%>
+                <span><a href="/login">Sign-in</a></span>
+                <span><a href="/register">Signup</a></span>
+                <% } %>
+            </div>
+       </div>
     </nav>

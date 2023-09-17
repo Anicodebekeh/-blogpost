@@ -1,3 +1,88 @@
-h1 {
-    color: red;
+body{
+    font-family: 'Montserrat', 'Open sans';
+    padding: 0em;
+    margin:0em;
+    height: 100vh;
+    background-image: linear-gradient(
+        to bottom,
+        rgba(22, 22, 21, 0.9),
+        rgba(16, 16, 17, 0.5)),url("https://media.istockphoto.com/id/1477858506/photo/news-online-in-phone-reading-newspaper-from-website-digital-publication-and-magazine-mockup.jpg?s=612x612&w=0&k=20&c=yIC_VaGiYom9KRA4opOHXxGftxAafF1QVJrjXUG1q_s=");
+        background-repeat: no-repeat;
+        background-size: cover;
+}
+/* navbar------------------------------------------- */
+nav{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 1em 5em;
+}
+
+nav .left-pan h1 {
+   font-size: 1rem;
+   margin: 0em;
+   color: #dee2e6;
+   cursor: pointer;
+}
+
+nav .right-pan {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .right-pan ul {
+   padding-right: 1.5em;
+   margin: 0em;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+nav .right-pan ul li{
+    list-style: none;
+    color: black;
+    padding-right: 1.5em;
+}
+
+nav .right-pan a{
+    text-decoration: none;
+    color: #dee2e6;
+}
+
+nav .navbar span{
+    display: inline-block;
+    padding: 0em 1em;
+    color: #dee2e6;
+}
+
+
+/* body ---------------------------------------*/
+.home {
+    margin: 30vh auto;
+    width: 50em;
+    height: 10em;
+    text-align: center;
+}
+
+.home h2{
+    font-size: 2rem;
+    font-family: Montserrat;
+    /* text-align: center;   */
+    color: #dee2e6;
+    letter-spacing: 0.3em;
+    margin: 0em;
+    padding-bottom: 0.8em;
+}
+
+.home button{
+    text-align: center;
+    padding: 0.5em 2em;
+    font-size: 1.2rem;
+    border-radius: 0.3em;
+    border: none;
+    color: #dee2e6;
+    background-color: #023047;
+    cursor: pointer;
+    font-weight: 400;
 }
