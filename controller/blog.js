@@ -22,7 +22,7 @@ module.exports.post=wrapAsync(async (req, res)=>{
     blog.images = req.files.map(i => ({url: i.path, filename: i.filename}))
     blog.user = req.user._id
     await blog.save()
-    console.log(blog)
+    // console.log(blog)
     req.flash('success', 'created successfully')
     res.redirect("/blog")
 });
@@ -70,7 +70,7 @@ module.exports.put = wrapAsync(async (req, res)=>{
             await cloudinary.uploader.destroy(filename)
         }
         await blog.updateOne ({$pull: {images: {filename: {$in: req.body.deleteImages}}}})
-        console.log(blog)
+        // console.log(blog)
     }
     req.flash('success', 'Edited successfully')
     return res.redirect(`/blog/${blog._id}`)

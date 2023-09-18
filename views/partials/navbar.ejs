@@ -4,6 +4,7 @@
             <h1>blogPost</h1>
         </div>
 
+
        <div class="right-pan">
             <ul>
                 <li><a href="/">Home</a></li>
@@ -13,6 +14,7 @@
 
             <div class="navbar">
                 <%if (currentUser){ %>
+                    <span>welcome <%=currentUser.username%></span>
                     <a href="/logout">logout</a>
             <% }else {%>
                 <span><a href="/login">Sign-in</a></span>

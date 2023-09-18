@@ -8,9 +8,6 @@
         <p><%=success %></p>
         <p><%=error %></p>
     
-        <% if (currentUser){ %>
-            <span>welcome <%=currentUser.username%></span>
-        <% } %>
             
         <% for (let blog of blogs){ %>
             <div class="details">
@@ -24,6 +21,6 @@
         <% } %>
     
     
-        <a class="button" href="/blog/newblog">create new post</a> 
+        <!-- <a class="button" href="/blog/newblog">create new post</a>  -->
     </div>
 </div>
