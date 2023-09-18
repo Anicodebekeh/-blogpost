@@ -1,14 +1,24 @@
-body{
+*{
     font-family: 'Montserrat', 'Open sans';
     padding: 0em;
     margin:0em;
+}
+
+/* body {
+    overflow: hidden; 
+} */
+
+#home{
+    overflow: hidden; 
     height: 100vh;
+    font-family: 'Montserrat', 'Open sans';
     background-image: linear-gradient(
         to bottom,
         rgba(22, 22, 21, 0.9),
-        rgba(16, 16, 17, 0.5)),url("https://media.istockphoto.com/id/1477858506/photo/news-online-in-phone-reading-newspaper-from-website-digital-publication-and-magazine-mockup.jpg?s=612x612&w=0&k=20&c=yIC_VaGiYom9KRA4opOHXxGftxAafF1QVJrjXUG1q_s=");
+        rgba(16, 16, 17, 0.9)),url("https://media.istockphoto.com/id/1477858506/photo/news-online-in-phone-reading-newspaper-from-website-digital-publication-and-magazine-mockup.jpg?s=612x612&w=0&k=20&c=yIC_VaGiYom9KRA4opOHXxGftxAafF1QVJrjXUG1q_s=");
         background-repeat: no-repeat;
         background-size: cover;
+        background-position: center;
 }
 /* navbar------------------------------------------- */
 nav{
@@ -16,6 +26,9 @@ nav{
    align-items: center;
    justify-content: space-between;
    padding: 1em 5em;
+   background-color: #023047;
+   top: 0em;
+   position: sticky;
 }
 
 nav .left-pan h1 {
@@ -48,15 +61,16 @@ nav .right-pan ul li{
 nav .right-pan a{
     text-decoration: none;
     color: #dee2e6;
-    transition:  all 1s;
+    transition:  all 1s ease-in-out;
 }
 
 nav .right-pan a:hover{
-    text-shadow: 2px 2px 4px #023047;
+   border-bottom: 0.1em #dee2e6 solid;
 }
 
 nav .right-pan .navbar {
    border-left: 0.1em solid #dee2e6;
+   padding: 0em 0.6em;
 }
 
 nav .navbar span{
@@ -68,16 +82,16 @@ nav .navbar span{
 
 /* body ---------------------------------------*/
 .home {
-    margin: 30vh auto;
+    margin: 0 auto;
     width: 50em;
     height: 10em;
     text-align: center;
+    padding-top: 20em;
 }
 
 .home h2{
     font-size: 2rem;
     font-family: Montserrat;
-    /* text-align: center;   */
     color: #dee2e6;
     letter-spacing: 0.3em;
     margin: 0em;
@@ -102,4 +116,43 @@ nav .navbar span{
     background-color: #dee2e6;
     color: #023047;
     font-weight: bolder;
+}
+
+/* index page */
+
+.main .blog{
+    margin: 0 auto;
+    width: 60%;
+    padding: 1em;
+}
+
+.main .blog .details {
+   margin: 2em 0em;
+}
+
+.main .blog .details a {
+ text-decoration: none;
+ color: #000;
+}
+
+.main .blog .details a h1{
+    font-size: 1.5rem;
+}
+
+.main .blog .details a P{
+    text-align: justify;
+    line-height: 1.5em;
+    font-weight: bold;
+}
+
+.button{
+    text-decoration: none;
+    padding: 0.5em 2em;
+    font-size: 1.2rem;
+    border-radius: 0.3em;
+    border: none;
+    color: #dee2e6;
+    background-color: #023047;
+    cursor: pointer;
+    font-weight: 400;
 }

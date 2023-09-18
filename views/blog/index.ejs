@@ -2,24 +2,28 @@
 <% layout( './layouts/boilerplate' ) %>
 
 
-    <h1>HERE IS YOUR HOME BLOG</h1>
-<!-- error and success flash message-->
-    <p><%=success %></p>
-    <p><%=error %></p>
-
-    <% if (currentUser){ %>
-        <span>welcome <%=currentUser.username%></span>
-    <% } %>
-        
-    <% for (let blog of blogs){ %>
-        <a href="/blog/<%=blog._id%>/">
-            <li><%= blog.title %></li>
-            <p><%=blog.body %></p>
-            <span><%=blog.author %></span>
-        </a>
-       
-    <% } %>
-
-
-    <a href="/blog/newblog">create new post</a>
+<div class="main">
+    <div class="blog">
+        <!-- error and success flash message-->
+        <p><%=success %></p>
+        <p><%=error %></p>
     
+        <% if (currentUser){ %>
+            <span>welcome <%=currentUser.username%></span>
+        <% } %>
+            
+        <% for (let blog of blogs){ %>
+            <div class="details">
+                <a href="/blog/<%=blog._id%>/">
+                    <h1><%= blog.title %></h1>
+                    <p><%=blog.body %></p>
+                    <span><%=blog.author %></span>
+                </a>
+            </div>
+           
+        <% } %>
+    
+    
+        <a class="button" href="/blog/newblog">create new post</a> 
+    </div>
+</div>
