@@ -165,7 +165,7 @@ nav .navbar span{
     background-color: #023047;
     cursor: pointer;
     font-weight: bold;
-    margin: 13em 0em;
+    margin: 3em 0em;
     width: 100%;
     letter-spacing: 0.1em;
     transition: all 0.5s;
@@ -193,7 +193,7 @@ nav .navbar span{
     /* border: 0.1em red solid; */
     height: 90%;
     flex-basis: 50%;
-    padding: 4em 1.5em;
+    padding: 8em 1.5em 0em 1.5em;
     box-sizing: border-box;
     background-image: linear-gradient(
         to bottom,
@@ -219,11 +219,12 @@ nav .navbar span{
     width: 100%;
     height: 2.3em;
     margin-bottom: 1.5em;
-    background-color: #dee2e6;
-    border: none;
+    background:transparent;
+    border: 0.1em solid #dee2e6;
     border-radius: 0.3em;
     font-weight: bold;
     box-sizing: border-box;
+    color: #dee2e6;
     padding: 0.3em;
 
 }
@@ -236,7 +237,7 @@ nav .navbar span{
     box-sizing: border-box;
     padding: 1em;
     border-radius: 0.7em;
-    background-color: #023047;
+    background-image:  linear-gradient(#dee2e6, #023047)
 }
 
 .login h1{
@@ -245,5 +246,12 @@ nav .navbar span{
    text-align: center;
   padding-top: 50%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.alert{
+    background-color: #023047;
+    color: #dee2e6;
+    padding: 0.5em;
+    margin: 1em 0em;
 }
 
