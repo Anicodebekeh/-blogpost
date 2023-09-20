@@ -237,21 +237,32 @@ nav .navbar span{
     box-sizing: border-box;
     padding: 1em;
     border-radius: 0.7em;
-    background-image:  linear-gradient(#dee2e6, #023047)
+    background-image:  linear-gradient(360deg, #dee2e6, #023047)
 }
 
 .login h1{
-   color: #dee2e6;
+   color: #023047;
    font-size: 2rem;
    text-align: center;
   padding-top: 50%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-shadow: 1px 1px #dee2e6;
 }
 
-.alert{
+.login p{
+    color: #dee2e6;
+    font-size: 1rem;
+    text-align: center;
+    padding: 1em 4em;
+    font-weight: bolder;
+    line-height: 1.3em;
+    text-shadow: 1px 1px #023047;
+ }
+
+/* .alert{
     background-color: #023047;
     color: #dee2e6;
     padding: 0.5em;
     margin: 1em 0em;
-}
+} */
 
