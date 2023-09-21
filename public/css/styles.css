@@ -176,7 +176,6 @@ nav .navbar span{
 .button:hover{
     color: #023047;
     background-color: #dee2e6;
-  
 }
 
 .login{
@@ -209,7 +208,7 @@ nav .navbar span{
     flex-grow: 1;
 }
 
-.login-form form label{
+form label{
     display: block;
     font-size: 0.8rem;
     color:#dee2e6;
@@ -218,7 +217,7 @@ nav .navbar span{
     letter-spacing: 0.1em;
 }
 
-.login input[type=text],[type=password] {
+input[type=text],[type=password], [type=email] {
     width: 100%;
     height: 2.3em;
     margin-bottom: 1.5em;
@@ -277,42 +276,4 @@ nav .navbar span{
     padding: 2em 1em 1em;
     box-sizing: border-box;
     background-image:  linear-gradient(360deg, #dee2e6, #023047);
-}
-
-.register form input[type=text],[type=password] ,[type=email]{
-    width: 100%;
-    height: 2.3em;
-    margin-bottom: 1.5em;
-    background:transparent;
-    border: 0.1em solid #dee2e6;
-    border-radius: 0.3em;
-    font-weight: bold;
-    box-sizing: border-box;
-    color: #dee2e6;
-    padding: 0.3em;
-}
-
-.register form label{
-    display: block;
-    font-size: 0.8rem;
-    color:#dee2e6;
-    font-weight: bold;
-    padding-bottom: 0.3em;
-    letter-spacing: 0.1em;
-}
-
-.register .button{
-    text-decoration: none;
-    padding: 0.4em 2em;
-    font-size: 1rem;
-    border-radius: 0.3em;
-    border: none;
-    color: #dee2e6;
-    background-color: #023047;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 3em 0em;
-    width: 100%;
-    letter-spacing: 0.1em;
-    transition: all 0.5s;
 }
