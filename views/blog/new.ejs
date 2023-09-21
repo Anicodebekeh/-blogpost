@@ -1,14 +1,16 @@
 <% layout( './layouts/boilerplate' ) %>
-    <h2>here is your form</h2>
-    <form action="/blog" method="POST" enctype="multipart/form-data">
-        <label for="title">Title</label>
-        <input type="text" name="title" placeholder="Title" id="title" required>
-
-        <label for="body">Content</label>
-        <textarea name="body" id="body" cols="30" rows="3" placeholder="enter your message" required></textarea>
-
-        <input type="file" name="image" multiple/>
-
-        <button>Post</button>
-       
-    </form>
+    <div class="new">
+        <form action="/blog" method="POST" enctype="multipart/form-data">
+            <label for="title">Title</label>
+            <input type="text" name="title" placeholder="Title" id="title" required>
+    
+            <label for="body">Content</label>
+            <textarea name="body" id="body" rows="7" placeholder="enter your message" required></textarea>
+    
+           <label for="img" class="img"> Upload  </label>
+            <input id="img" type="file" name="image" multiple/>
+               
+            <button class="button">Post</button>
+           
+        </form>
+    </div>
