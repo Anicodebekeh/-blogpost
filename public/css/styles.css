@@ -29,6 +29,7 @@ nav{
    background-color: #023047;
    top: 0em;
    position: sticky;
+   max-width: 100vw;
 }
 
 nav .left-pan h1 {
@@ -142,6 +143,7 @@ nav .navbar span{
     font-size: 1.2rem;
     font-weight: bold;
     color: #023047;
+    text-shadow: 1px 1px #dee2e6;
 }
 
 .main .blog .details a h1:hover{
@@ -178,7 +180,6 @@ nav .navbar span{
 }
 
 .login{
-    /* border: 0.5em red solid; */
     width: 100vh;
     height: 80vh;
     margin: 1em auto;
@@ -186,7 +187,8 @@ nav .navbar span{
     align-items: center;
     justify-content: space-between;
     gap: 1em;
-    padding: 1em;
+    /* padding: 1em; */
+    flex-direction: row-reverse;
 }
 
 .login-form{
@@ -204,6 +206,7 @@ nav .navbar span{
         background-position: center;
     color: #dee2e6;
     border-radius: 0.7em;
+    flex-grow: 1;
 }
 
 .login-form form label{
@@ -231,13 +234,13 @@ nav .navbar span{
 
 
 .login .design{
-    /* border: 0.1em reds solid; */
     height: 90%;
     flex-basis: 50%;
     box-sizing: border-box;
     padding: 1em;
     border-radius: 0.7em;
-    background-image:  linear-gradient(360deg, #dee2e6, #023047)
+    background-image:  linear-gradient(360deg, #dee2e6, #023047);
+    flex-grow: 1;
 }
 
 .login h1{
@@ -249,20 +252,67 @@ nav .navbar span{
   text-shadow: 1px 1px #dee2e6;
 }
 
-.login p{
+.login q{
     color: #dee2e6;
     font-size: 1rem;
     text-align: center;
-    padding: 1em 4em;
+    padding: 1em 3em;
     font-weight: bolder;
     line-height: 1.3em;
     text-shadow: 1px 1px #023047;
+    display: block;
  }
 
-/* .alert{
-    background-color: #023047;
-    color: #dee2e6;
-    padding: 0.5em;
-    margin: 1em 0em;
-} */
+.register{
+    margin: 2em auto;
+    max-width: 50vw;
+    height: 70vh;
+}
 
+.register form{
+    width: 50%;
+    margin: 4em auto;
+    height: 90%;
+    border-radius: 0.7em;
+    padding: 2em 1em 1em;
+    box-sizing: border-box;
+    background-image:  linear-gradient(360deg, #dee2e6, #023047);
+}
+
+.register form input[type=text],[type=password] ,[type=email]{
+    width: 100%;
+    height: 2.3em;
+    margin-bottom: 1.5em;
+    background:transparent;
+    border: 0.1em solid #dee2e6;
+    border-radius: 0.3em;
+    font-weight: bold;
+    box-sizing: border-box;
+    color: #dee2e6;
+    padding: 0.3em;
+}
+
+.register form label{
+    display: block;
+    font-size: 0.8rem;
+    color:#dee2e6;
+    font-weight: bold;
+    padding-bottom: 0.3em;
+    letter-spacing: 0.1em;
+}
+
+.register .button{
+    text-decoration: none;
+    padding: 0.4em 2em;
+    font-size: 1rem;
+    border-radius: 0.3em;
+    border: none;
+    color: #dee2e6;
+    background-color: #023047;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 3em 0em;
+    width: 100%;
+    letter-spacing: 0.1em;
+    transition: all 0.5s;
+}
