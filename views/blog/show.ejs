@@ -1,40 +1,27 @@
 <% layout( './layouts/boilerplate' ) %>
 
-    <p><%=success %></p>
-    <p><%=error %></p>
-   
+<p><%=success %></p>
+<p><%=error %></p>
 
 <div class="show">
+   <h1><%= blog.title %></h1>
+            
+    <% blog.images.forEach((img, i)=>{ %>  
+        <img src="<%=img.url%>" alt="">
+    <% }) %> 
+   
 
-    <div class="content">
-        <h2>Title: <%= blog.title %></h2>
-
-    <% blog.images.forEach((img, i)=>{ %>
-        <div class="active">
-            <div class="swiper">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="<%=img.url%>" alt="<%=i%>"></div> 
-                </div>
-            </div>
-        </div>
-    <% }) %>   
-
-    
-      <!-- If we need navigation buttons -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-  </div>
-
-
-    <p>Content: <%= blog.body %></p>
-    <p>author:<%=blog.user.username %></p>
+    <p><%= blog.body %></p>
+    <span>Written by: <%=blog.user.username %></span>
 
 
     <%if (currentUser && blog.user.equals(currentUser._id)){ %>
-        <a href="/blog/<%=blog._id%>/edit">edit </a>
-        <form action="/blog/<%=blog._id%>?_method=DELETE" method="POST">
-        <button>Delete</button>
-        </form>
+        <div class="links">
+            <a class="hover" href="/blog/<%=blog._id%>/edit">Edit </a>
+            <form action="/blog/<%=blog._id%>?_method=DELETE" method="POST">
+                <button class="hover">Delete</button>
+            </form>
+        </div>
     <% } %>
 
 </div>
