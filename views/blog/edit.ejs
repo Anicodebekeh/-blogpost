@@ -1,24 +1,32 @@
 <% layout( './layouts/boilerplate' ) %>
   
-    <h2>here is your form</h2>
+
+   <div class="new">
 
     <form action="/blog/<%=blog._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
         <label for="title">Title</label>
-
         <input type="text" name="title" placeholder="Title" id="title" value="<%=blog.title%>" required>
 
         <label for="body">Content</label>
-        <textarea name="body" id="body" cols="30" rows="3" placeholder="enter your message" required><%=blog.body %></textarea>
+        <textarea name="body" id="body" cols="30" rows="9" placeholder="enter your message" required><%=blog.body %></textarea>
 
-        <input type="file" name="image" multiple/>
+       
+        <label for="img" class="img"> Upload  </label>
+        <input id="img" type="file" name="image" multiple/>
 
+
+        <div class="img-container">
+            
         <%blog.images.forEach(function(img, i){ %>
-            <img src="<%=img.url%>" alt="">
+            <img class="edit" src="<%=img.url%>" alt="" >
             <input type="checkbox" name= "deleteImages[]" id="image-<%=i%>" value="<%=img.filename%>">
-            <label for="image-<%=i%>">delete</label>
+            <label for="image-<%=i%>" class="txt">delete</label>
         <% }) %>
 
-        <button>Done</button>
+        </div>
+        <button class="btn">Done</button>
        
     </form>
+
+   </div>
 
