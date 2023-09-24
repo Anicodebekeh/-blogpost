@@ -427,6 +427,8 @@ input[type=text],[type=password], [type=email], [type=file] {
     border-radius: 0.3em;
     border: none;
     cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
 .txt{
@@ -434,3 +436,6 @@ input[type=text],[type=password], [type=email], [type=file] {
     color: #023047;
 }
 
+/* .img-container input[type="checkbox"]{
+    background-color: #023047;
+} */

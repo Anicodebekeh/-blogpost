@@ -18,7 +18,7 @@ const blogRoute = require('./route/blogRoute');
 const userRoute = require('./route/userRoute');
 const AppError = require('./utils/appError');
 const ejsMate = require('ejs-mate');
-
+const mongoSanitize = require('express-mongo-sanitize');
 
 // mongoose connection 
 mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
@@ -40,6 +40,7 @@ const sessionOptions={
     resave:false
 }
 
+app.use(mongoSanitize())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session (sessionOptions));
 app.use(flash());
