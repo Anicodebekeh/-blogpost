@@ -46,7 +46,7 @@ const sessionOptions={
     }
 }
 
-app.use(mongoSanitize())
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(session (sessionOptions));
 app.use(flash());
@@ -56,10 +56,12 @@ app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
+app.use(mongoSanitize());
 
 
 // flash middleware
 app.use((req,res, next)=>{
+    console.log(req.query)
     req.session.returnTo
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
