@@ -19,6 +19,7 @@ const userRoute = require('./route/userRoute');
 const AppError = require('./utils/appError');
 const ejsMate = require('ejs-mate');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet')
 
 // mongoose connection 
 mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
@@ -57,11 +58,12 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser())
 app.use(mongoSanitize());
+app.use(helmet({contentSecurityPolicy:false}))
 
 
 // flash middleware
 app.use((req,res, next)=>{
-    console.log(req.query)
+    // console.log(req.query)
     req.session.returnTo
     res.locals.success = req.flash('success')
     res.locals.error = req.flash('error')
