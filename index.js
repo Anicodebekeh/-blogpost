@@ -35,9 +35,15 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'))
 // session object
 const sessionOptions={
+    name:'session',
     secret: 'this is my secret', 
     saveUninitialized:false, 
-    resave:false
+    resave:false,
+    cookies:{
+        httpOnly:true,
+        expires:Date.now()+1000*60*60*24*7,
+        maxAge: 1000*60*60*24*7
+    }
 }
 
 app.use(mongoSanitize())
