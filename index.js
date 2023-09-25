@@ -2,8 +2,6 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config()
 }
 
-// console.log(process.env.CLOUDINARY_SECRET)
-
 const express = require ('express');
 const app = express();
 const path = require('path');
@@ -20,9 +18,12 @@ const AppError = require('./utils/appError');
 const ejsMate = require('ejs-mate');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet')
+const MongoStore = require('connect-mongo');
+
+const dbUrl = 'mongodb://127.0.0.1:27017/blogPost'
 
 // mongoose connection 
-mongoose.connect('mongodb://127.0.0.1:27017/blogPost')
+mongoose.connect(dbUrl)
 .then(()=> console.log("connected to Mongo"))
 .catch((e)=> console.log("error connecting to mongo", e))
 
@@ -35,9 +36,20 @@ app.set('views enjine', 'ejs');
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'))
 // session object
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    }
+});
+store.on("error", function (e){
+    console.log('session store Error', e)
+})
 const sessionOptions={
+    store,
     name:'session',
-    secret: 'this is my secret', 
+    secret: 'thisismysecret', 
     saveUninitialized:false, 
     resave:false,
     cookies:{
